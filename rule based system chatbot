@@ -1,0 +1,56 @@
+import random
+import re
+
+class RuleBasedChatbot:
+    def __init__(self):
+        self.rules = {
+            r"\b(hi|hello|hey)\b": ["Hello! How can I assist you today?", "Hi there! What’s up? 😊", "Hey! How can I help?"],
+            r"how are you": ["I'm just a chatbot, but I'm here to help you!", "I'm doing great! How about you?", "I'm always here to assist you!"],
+            r"what'?s your name": ["I am ChatBot 2.0, your virtual assistant!", "Just call me ChatBot!"],
+            r"who are you": ["I am an AI chatbot, here to answer your questions!", "A friendly bot designed to chat with you."],
+            r"what is your purpose": ["I help answer questions and assist with basic tasks!", "I'm here to provide information and have fun conversations!"],
+            r"how do you work": ["I match your inputs to predefined responses using pattern recognition!", "I use rule-based logic to respond to your messages."],
+            r"tell me a joke": [
+                "Why don’t skeletons fight each other? They don’t have the guts!",
+                "What do you call fake spaghetti? An impasta! 😂",
+                "Why did the computer catch a cold? It left its Windows open!"
+            ],
+            r"who created you": ["I was created by a developer who loves AI!", "A programmer built me to chat with you!"],
+            r"what can you do": ["I can answer your questions, tell jokes, and share fun facts!", "I can chat, provide information, and entertain you!"],
+            r"how old are you": ["I exist beyond time! 😉", "I am as old as the internet."],
+            r"what'?s the weather like": ["I can't check the weather, but you can try a weather app!", "Check a weather website for the latest updates!"],
+            r"do you like music": ["I don’t have preferences, but I hear music is amazing!", "I can't listen, but I know people love music!"],
+            r"tell me a fun fact": [
+                "Did you know that honey never spoils? 🍯",
+                "Bananas are berries, but strawberries aren’t!",
+                "Octopuses have three hearts! 🐙"
+            ],
+            r"can you help me with math": ["Sure! What problem do you need help with?", "I’d be happy to help! What's your math question?"],
+            r"what is ai": ["AI stands for Artificial Intelligence, which enables machines to mimic human thinking!", "AI is the future! It helps computers learn and make decisions."],
+            r"how do i make a chatbot": ["You can use Python, NLP, and ML libraries like NLTK, TensorFlow, or spaCy!", "A chatbot can be made using rule-based or AI-driven methods."],
+            r"bye|goodbye": ["Goodbye! Have a great day! 😊", "See you later! Stay awesome!"],
+        }
+
+    def get_response(self, user_input):
+        user_input = user_input.lower().strip()
+
+        for pattern, responses in self.rules.items():
+            if re.search(pattern, user_input):
+                return random.choice(responses)
+
+        return random.choice([
+            "I'm not sure how to respond to that. 🤔",
+            "Can you rephrase that?",
+            "I'm still learning! Ask me something else."
+        ])
+
+if __name__ == "__main__":
+    bot = RuleBasedChatbot()
+    
+    print("ChatBot: Hi! Type 'exit' to end the chat.")
+    while True:
+        user_input = input("You: ")
+        if user_input.lower() == "exit":
+            print("ChatBot: Goodbye! Have a great day! 😊")
+            break
+        print(f"ChatBot: {bot.get_response(user_input)}")
